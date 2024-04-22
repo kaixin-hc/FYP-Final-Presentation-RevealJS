@@ -1,40 +1,785 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="dist/reset.css">
-		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css">
+	<title>BComp Dissertation: Code Blue</title>
 
-		<!-- Theme used for syntax highlighted code -->
-		<link rel="stylesheet" href="plugin/highlight/monokai.css">
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
+	<link rel="stylesheet" href="dist/reset.css">
+	<link rel="stylesheet" href="dist/reveal.css">
+	<link rel="stylesheet" href="dist/theme/white.css">
+	<style>
+		.scrollable-slide {
+			height: 800px;
+			overflow-y: auto !important;
+		}
+
+		::-webkit-scrollbar {
+			width: 6px;
+		}
+
+		::-webkit-scrollbar-track {
+			-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+		}
+
+		::-webkit-scrollbar-thumb {
+			background-color: #333;
+		}
+
+		::-webkit-scrollbar-corner {
+			background-color: #333;
+		}
+
+		/*  */
+		.reveal .slide-number {
+			font-size: 24pt;
+			margin: 0px 30px 30px;
+			color: #007BFF;
+			background-color: transparent;
+		}
+
+		.row {
+			display: flex;
+			font-size: 24px;
+		}
+
+		.col.left {
+			text-align: left;
+			width: 40%;
+		}
+
+		.col.right {
+			margin-left: 10px;
+			width: 100%;
+			text-align: left;
+		}
+	</style>
+	<!-- Theme used for syntax highlighted code -->
+	<link rel="stylesheet" href="plugin/highlight/monokai.css">
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section data-background="#007BFF">
+				<h2>Code Blue: Medical Co-op Simulation Game</h2>
+				<h4>FYP Project No: H123290<br />
+					Hannah Chia (A0225702N)
+				</h4>
+				<br />
+				<p style="font-size: 18px; font-style: italic;">This work is done together in collaboration with two
+					doctors, A/P Erle Lim
+					and Dr.
+					Michelle Tan, and supported by
+					the Yong Loo Lin School of Medicine (YLLSoM) and Changi General Hospital(CGH) Department of
+					Anaesthesia</p>
+			</section>
+			<!-- TOC -->
+			<section data-markdown data-auto-animate>
+				<textarea data-template>
+					## Agenda
+					* Problem background and project rationale <!-- .element: class="fragment" -->
+					* Project Timeline <!-- .element: class="fragment" -->
+					* Understanding the Problem and Requirements <!-- .element: class="fragment" -->
+					* Project deliverables: Game + Admin Dashboard <!-- .element: class="fragment" -->
+					* Design decision discussions <!-- .element: class="fragment" -->
+
+
+					</textarea>
+			</section>
+			<section>
+				<section data-markdown>
+					<textarea data-template>
+					<!-- .slide: data-background="#007BFF" -->
+					# Problem Background
+					---
+					## Problem Background
+					* New doctors struggle to prioritise tasks in a ward <!-- .element: class="fragment" -->
+					* Traditional teaching methods struggle to teach this skill <!-- .element: class="fragment" -->
+					---
+					### Ward environments have
+					* Lots of competing priorities and information  <!-- .element: class="fragment" data-fragment-index="0" -->
+					* Time pressure  <!-- .element: class="fragment" data-fragment-index="1"  -->
+					* High stakes (patients' lives)  <!-- .element: class="fragment" data-fragment-index="2" -->
+
+					>*New doctors are placed into a new and difficult situation where mistakes can have really bad consequences!* <!-- .element: class="fragment" data-fragment-index="3" -->
+					<!-- .element: class="fragment" data-fragment-index="3" --> <!-- .element: class="fragment" data-fragment-index="3" --> 
+					---
+					### How is this skill taught right now?
+					* Classroom education <!-- .element: class="fragment" --> *: hard to model a dynamic situation with multiple patients* <!-- .element: class="fragment" -->
+					* Simulation & role-playing <!-- .element: class="fragment" --> *: resource and logistically intensive* <!-- .element: class="fragment" -->
+					* Learning on the job <!-- .element: class="fragment" --> *: risk to patients & pressure on senior residents* <!-- .element: class="fragment" -->
+					---
+					### Approaching the problem through a serious medical game
+					* More accurately model a dynamic situation in a ward <!-- .element: class="fragment" data-fragment-index="1" -->
+					* Extremely scalable; additional players can practice without additional resources <!--.element: class="fragment"-->
+					* Safe environment to make mistakes <!-- .element: class="fragment" -->					
+
+					</textarea>
+				</section>
+				<section> <!-- Table comparing teaching methods -->
+					<table style="border:2px solid grey">
+						<thead style="font-size: 28px;">
+							<tr>
+								<th>Name</th>
+								<th>Patient Progression</th>
+								<th>Multiple patients</th>
+								<th>Prioritisation amidst distractions</th>
+								<th>Scalability</th>
+								<th>Safe?</th>
+							</tr>
+						</thead>
+						<tbody style="font-size: 24px;">
+							<tr>
+								<td>Classroom Teaching</td>
+								<td>Accurate, mostly textual</td>
+								<td>Difficult/Rare</td>
+								<td>N/A</td>
+								<td>OK</td>
+								<td>Yes</td>
+							</tr>
+							<tr>
+								<td>Simulation & Role-playing</td>
+								<td>Accurate</td>
+								<td>Difficult/Rare</td>
+								<td>Difficult/Rare</td>
+								<td>Not Scalable</td>
+								<td>Yes</td>
+							</tr>
+							<tr>
+								<td>Learning on the job</td>
+								<td>Most accurate</td>
+								<td>Yes</td>
+								<td>Difficult/Rare</td>
+								<td>N/A</td>
+								<td>Not really</td>
+							</tr>
+							<tr style="background-color: #cee5ff;">
+								<td>Serious Game</td>
+								<td>Accurate</td>
+								<td>Yes</td>
+								<td>Yes</td>
+								<td>Very Scalable</td>
+								<td>Yes</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+			</section>
+			<section data-background="#007BFF">
+				<h2>Game: Code Blue</h2>
+				<div
+					style="text-align: left; border: white solid 5px; background-color:darkslategrey; padding:15px 30px;font-size: 32px;">
+					<p>Code Blue is a <b>serious medical simulation game</b> set in a hospital ward, where junior
+						doctors
+						<b>learn to prioritise tasks</b> to better serve their patients.
+					</p>
+
+					<br />
+					<p class="fragment">Target Audience: <b>students studying medicine</b> preparing for
+						work in real hospital wards.</p>
+				</div>
+				<p class="r-fit-text fragment"><em>Built with Godot and Supabase as a backend, hosted on web</em></p>
+			</section>
+			<section> <!-- Demo for the whole thing -->
+				<div class="r-stack">
+					<h2 class="fragment current-visible">Embedded Demo</h2>
+					<h2 class="fragment current-visible">Tutorial</h2>
+					<h2 class="fragment current-visible">Familiarising with the ward</h2>
+					<h2 class="fragment current-visible">Let's try out a sample game</h2>
+					<h2 class="fragment current-visible">Prioritise</h2>
+					<h2 class="fragment current-visible">Executing Actions</h2>
+					<h2 class="fragment current-visible">Taking a wrong action</h2>
+					<h2 class="fragment current-visible">Having Results Come Back</h2>
+					<h2 class="fragment current-visible">Understanding results</h2>
+				</div>
+				<iframe src="https://code-blue-mvp.vercel.app/" width="1200px" height="570px"></iframe>
+			</section>
+
+			<section data-markdown data-auto-animate>
+				<textarea data-template>
+					## Code Blue Key Feature Recap
+					* Randomised patients with art that reflects a range of conditions, ages, demographics <!-- .element: class="fragment" -->
+					* Priority list of tasks that can be added to, rearranged, and executed in order <!-- .element: class="fragment" -->
+					* Patient state deteriorates or improves based on time and patient actions <!-- .element: class="fragment" -->
+					* Game is scored and players can understand how they did <!-- .element: class="fragment" -->
+				</textarea>
+			</section>
+
+			<section>
+				<section data-markdown>
+					<textarea data-template>
+					<!-- .slide: data-background="#007BFF" -->
+					## User Testing & Response
+
+					---
+					## Details
+
+					* Interviews + playtestesting with doctors/Medical students <!-- .element: class="fragment" data-fragment-index="0"-->
+						* 8 unique participants  <!-- .element: class="fragment" data-fragment-index="1"-->
+						* 4 senior doctors, 3 junior doctors, 1 medical student  <!-- .element: class="fragment" data-fragment-index="1"-->
+					* 3 playable iterations  <!-- .element: class="fragment" data-fragment-index="2"-->
+						* Bug fixes + Feature development  <!-- .element: class="fragment" data-fragment-index="2" -->
+					* Continual development with Dr Michelle & Dr Erle  <!-- .element: class="fragment" -->
+					---
+					## Validation: "Mimics Real Life"  <!-- .element: class="r-fit-text" -->
+
+					> It promotes a sense of urgency and mimics real life whereby patients require attention simultaneously. <!-- .element: class="fragment" -->
+					
+					<!-- Commented out bc I think the point can be made without it> More interactive, and can possibly replicate real life scenarios. -->
+					
+					---
+					
+					## Validation: "Unique Learning" <!-- .element: class="r-fit-text" -->
+
+					> Definitely more engaging, especially useful since current means of doing so are text base and not nearly as interactive. <!-- .element: class="fragment r-fit-text" -->
+
+					> There aren't many lectures or tutorials that specifically train this skill. This simulation/game would be helpful to practice decision making as a bridge to starting work <!-- .element: class="fragment r-fit-text" -->
+					---
+
+					## Validation: Scalability <!-- .element: class="r-fit-text" -->
+
+					> IRL always will beat but this has replayability and doesn’t require any logistics to set up so definitely has utility for revision practice <!-- .element: class="fragment r-fit-text" -->
+					
+					> Less realistic, but also less laborious to set up and repeat. Good for spot diagnoses and management of fixed conditions <!-- .element: class="fragment r-fit-text" -->
+					
+					---
+					## Criticism <br/> and <br/> plans for improvement
+
+					---
+					## Feedback: Difficulty & Timing <!-- .element: class="r-fit-text" -->
+					
+
+					| Feedback | Planned improvement |
+					|----------|---------------------|
+					| New players need time to adjust | Introduce **tutorial** to familiarise players with controls |
+					| Too little time to examine patients & some actions take too long | Adjust time for planning & execution & actions |
+					| Repetitive conditions | Add more data for conditions |
+
+					<!-- .element: class="fragment r-fit-text" -->
+					
+					_Future plans: allow player to select difficulty_ <!-- .element: class="fragment r-fit-text" -->
+
+					---
+
+					## Feedback: User Interface <!-- .element: class="r-fit-text" -->
+					_Examples of some feedback and how it was acted on in future iterations_
+					
+					</textarea>
+				</section>
+				<section>
+					<h3 data-background="#007BFF" class="r-fit-text">Feedback: PatientScreen</h3>
+					<div class="r-stack">
+						<img src="images/OLD-SymptomsPanel.png" class="fragment current-visible" />
+
+						<img src="images/VisibleSymptomsBubble.png" class="fragment current-visible" />
+					</div>
+				</section>
+				<section>
+					<h3 class="r-fit-text">Feedback: Triage patients visually</h3>
+
+					<p style="font-style: italic;">Exaggerated Breathing animations</p>
+					<div class="row">
+						<div class="col">
+							<video data-autoplay loop src="images/OLD-VERS-FastBreathing.mp4" height="500px">
+						</div>
+						<p style="font-size: 80px; font-weight: 800; align-self:center;"> > </p>
+						<div class="col">
+							<video data-autoplay loop src="images/NEW-VERS-FastBreathing.mov" height="500px">
+						</div>
+					</div>
+				</section>
+				<section>
+					<h3 class="r-fit-text">Feedback: Triage patients visually</h3>
+
+					<p style="font-style: italic;">Old looking characters</p>
+					<img src="images/Old_Person_Art_Assets.png" class="r-stretch" />
+				</section>
+			</section>
+			<section data-background="#007BFF">
+				<h2>Design decisions</h2>
+			</section>
+			<section>
+				<section data-markdown>
+					<textarea data-template>
+					<!-- .slide: data-background="#007BFF" -->
+					## Data driven design
+
+					---
+					### Admin Dashboard for Code Blue
+
+					* Simple authentication (done with Supabase)
+					* Built with React-Admin
+
+					---
+
+					## Impact of Dashboard <!-- .element: class="r-fit-text" -->
+					* Better (visual) understanding of relationships between data <!-- .element: class="fragment" -->
+					* Quickly test game balance by updating data <!-- .element: class="fragment" -->
+					* Allows extensibility without a developer <!-- .element: class="fragment" -->
+					<br/>
+					</textarea>
+				</section>
+
+				<section data-background-iframe="https://codebluedashboard-gvpi.vercel.app/" data-background-interactive
+					data-preload>
+				</section>
+			</section>
+
+			<section>
+				<section>
+
+				</section>
+			</section>
+
+
+
+			<section>
+				<section data-markdown>
+					<textarea data-template>
+					## Patient Generation Model
+					---
+					Diagram of present state
+					---
+					Data visualisationn ( What was it you wanted to say here? )
+
+					---
+					Data visualisation in python
+
+					
+					![Image of data generation](images/DataGenerationPython.png)
+
+					---
+					Data visualisation in dashboard
+					---
+					Alternatives considered
+
+					* Depends on how I draw the diagram
+					--- 
+					Current decision
+
+					</textarea>
+				</section>
+			</section>
+			<section>
+				<section data-markdown>
+					<textarea data-template>
+					## Art decisions
+					---
+					Show art
+					---
+					How generated
+					---
+					Range of ages/conditions/breathlessness
+
+					</textarea>
+				</section>
+			</section>
+			<section>
+				<section data-markdown>
+					<textarea data-template>
+					## Data driven design
+					------
+					## Admin Dashboard for Code Blue
+					* Better (visual) understanding of relationships between data
+					* Doctors can update data at any time via the dashboard
+					* Allows for quick testing of game balance and extensibility after the project is over
+					</textarea>
+				</section>
+				<section>
+					<h2>Impact of Dashboard</h2>
+					<ul>
+						<li>Better (visual) understanding of relationships between data</li>
+						<li>Speed development during project</li>
+						<li>Allows development after FYP without developer involvement</li>
+					</ul>
+				</section>
+				<section data-background-iframe="https://codebluedashboard-gvpi.vercel.app/" data-background-interactive
+					data-preload>
+				</section>
+			</section>
+			<section>
+				<section>
+
+				</section>
+			</section>
+
+
+			<!-- <section>
+				<section data-background-iframe="https://code-blue-mvp.vercel.app/" data-background-interactive>
+				</section>
+			</section> -->
+			<section>
+				<h2>Project Timeline</h2>
+			</section>
+
+			<section data-markdown data-auto-animate>
+				<textarea data-template>
+					## About Code Blue
+
+					Code Blue is a **serious medical simulation game** set in a hospital ward, where junior doctors **learn to prioritise tasks** to better serve their patients.
+
+					The first users of Code Blue are intended to be **students studying medicine** and are preparing for work in real hospital wards.
+					---
+					## Code Blue's Key Features
+					* Randomised patients with art that reflects a range of conditions, ages, demographics
+					* Priority list of tasks that can be added to, rearranged, and executed in order
+					* Patient state deteriorates or improves based on time and patient actions
+					* Game is scored and players can understand how they did
+					---
+					## Admin Dashboard for Code Blue
+
+					* Doctors can update data at any time via the dashboard
+					* Allows for quick testing of game balance and extensibility after the project is over
+
+				</textarea>
+			</section>
+
+
+
+
+
+			<section> <!-- Roadmap! -->
+				<div class="row">
+					<div class="col left">
+						<div class="fragment" data-fragment-index="1"
+							style="border: 2px solid aliceblue; border-radius: 5px; padding: 15px;">
+							<h3>Step 1: Context</h3>
+							<ul>
+								<li><b>When</b> will this talk help you?</li>
+								<li><b>Why</b> do you need this talk?</li>
+								<li><b>What</b> is this mystery tool?</li>
+							</ul>
+							<br />
+						</div>
+						<br />
+						<div class="fragment" data-fragment-index="3"
+							style="border: 2px solid aliceblue; border-radius: 5px; padding: 15px;">
+							<h3>Okay, so?</h3>
+							<ul>
+								<li>Case study</li>
+								<li>Recap</li>
+							</ul>
+						</div>
+					</div>
+					<div class="col right">
+						<div class="fragment top" data-fragment-index="2"
+							style="border: 2px solid aliceblue; border-radius: 5px; padding: 15px;">
+							<!-- <div class="arrow-right"></div> -->
+							<h2 style="font-size: 54px;">Step 2: Introducing **** to save time and do your job better
+							</h2>
+							</h2>
+							<ul>
+								<li>It's fast</li>
+								<li>It's effective</li>
+								<li>It's flexible</li>
+							</ul>
+						</div>
+						<div class="col right fragment" data-fragment-index="4" style="padding: 15px;">
+							<h1>Ready? Let's start!</h1>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section data-transition="concave">
+				<section data-markdown data-auto-animate>
+					<section data-background-gradient="radial-gradient(#002b36, #17b2c3)">
+						<h2>Why - an illustration</h2>
+					</section>
+					<textarea data-template>
+					## ??? TT_TT
+					![Excel suffering](images/dataForGameExcel.png)
+					---
+					### Any manual/non database way leads to...
+					* inconsistencies in naming
+					* developer(you!) doing data transformation
+					* *painful* back and forth with stakeholders
+					---
+					### And the database way...
+					```SQL
+					INSERT INTO Articles (title, content, numTimes)
+					VALUES (
+					'Unlikely stakeholders can interface with DB directly',
+					'It is likely you will be asked for every bit of data',
+					2147483647
+					);
+					```
+					---
+					### And the database way...
+					```SQL
+					INSERT INTO Articles (title, content, numTimes)
+					VALUES (
+					'Unlikely stakeholders can interface with DB directly',
+					'It is likely you will be asked for every bit of data',
+					2147483647
+					);
+					```
+					## also leads to pain
+					</textarea>
+				</section>
+			</section>
+			<section> <!-- Lit Review (May want to change or delete) -->
+				<section data-markdown>
+					<textarea data-template>
+					## Literature Review
+
+					> Survey the landscape of medical games (serious and otherwise) and (online) medical simulation tools
+					---
+					## Products Studied
+
+					* Commercial "Fun" Games
+						* Project Hospital
+						* Theme Hospital and Two Point Hospital
+					* LevelEx (Medical Game Studio)
+					* NUS Medical Games
+						* Healing 2.0
+						* CREATIVE
+						* Virtual Integrated Patient
+					* OSCEs and Oscer.AI
+					---
+					# Niche
+					---
+					> ### No other game or product in this niche <br/> (Prioritising tasks in a ward for doctors)
+					---
+					## Art Style
+					* Stylized 
+					* Use multimedia to support
+					---
+					## Medical Accuracy
+					* Information dense patient display
+					* Generic illustrations for extensibility
+					* Randomly generated patients for replayability
+					* Feedback / scoring shared immediately with player
+					---
+					## Mobile?
+
+					Portability / mobility part of the appeal - have to be able to play on your device
+					---
+					## Fun
+
+					Optimisation Challenge = fun
+
+				</textarea>
+				</section>
+			</section>
+			<section data-transition="concave">
+				<section data-background-gradient="radial-gradient(#002b36, #17b2c3)">
+					<h2>What: React Admin</h2>
+				</section>
+				<!-- Title of presentation & road map -->
+				<section>
+					<div class="sl-block" data-block-type="text" style="left: 0px; top: 170px; height: auto;">
+						<div class="sl-block-content"
+							style="z-index: 12; font-size: 100%; text-align: center; color: rgb(0, 0, 0); line-height: 0.975; letter-spacing: -0.1em; padding: 16px;"
+							data-has-line-height="" data-has-letter-spacing="">
+							<h1>React-Admin</h1>
+						</div>
+					</div>
+					<div class="sl-block" data-block-type="text" style=" left: 254px; top: 501px; height: auto;"
+						data-name="text-d18e72">
+						<div class="sl-block-content"
+							style="z-index: 13; text-align: center; padding: 16px; font-size: 70%;">
+							<h2>Improve <a>communication</a></h2>
+							<h2>With your (<a>non-tech</a>) <a>stakeholders</a></h2>
+							<h2><a>As soon as possible</a></h2>
+						</div>
+					</div>
+				</section>
+				<section>
+					<img src="images/ReactAdminSplashScreen.png" alt="React-Admin website screenshot">
+				</section>
+			</section>
+			<!-- Key Features Points -->
+			<section>
+				<section data-transition="concave" data-background-gradient="radial-gradient(#002b36, #17b2c3)">
+					<h2>Set up and build fast</h2>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+				### Just 13 lines of code to set up a basic dashboard
+				```ts
+				import React from 'react';
+				import { Admin, Resource, ListGuesser } from 'react-admin';
+				import simpleRestProvider from 'ra-data-simple-rest';
+
+				const dataProvider = simpleRestProvider('https://domain.tld/api');
+
+				const App = () => (
+				<Admin dataProvider={dataProvider}>
+					<Resource name="users" list={ListGuesser} />
+				</Admin>
+				);
+
+				export default App;
+				```
+				---
+				## Guessing your CRUD set up
+				```ts [3]
+				const App = () => (
+				<Admin dataProvider={dataProvider}>
+					<Resource name="posts" list={ListGuesser} edit={EditGuesser} show={ShowGuesser} />
+				</Admin>
+				);
+				);
+				```
+				---
+				## So easy!
+				![List guesser image](images/ListGuesser.png)
+				---
+				## Great, well-developed documentation
+				* Tutorials
+				* Demos
+				</textarea>
+				</section>
+			</section> <!-- End of Fast -->
+
+			<section> <!-- Effective -->
+				<section data-transition="concave" data-background-gradient="radial-gradient(#002b36, #17b2c3)">
+					<h2>Effective: all the features you need</h2>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+			## Relational
+			Designed to just work for relational DBs.
+			You can use your own logic
+			but it takes care of the basic stuff
+			---
+			## Used by _more than 25,000 companies_
+			* Actively Mantained + Robust
+			* Already mature (few bugs)
+			* Active developers
+			</textarea>
+				</section>
+			</section>
+
+			<section data-transition="concave"> <!-- Case Study -->
+				<section>
+					<h3>The deliverable...</h3>
+					<img src="images/S1.png" alt="React-Admin website screenshot">
+				</section>
+				<section>
+					<h2> Other concerns?</h2>
+					<ul>
+						<li>Development during FYP</li>
+						<li>Handover after FYP</li>
+					</ul>
+				</section>
+			</section>
+			<section>
+				<h3>Condition Progression</h3>
+				<div class="mermaid">
+					<pre>
+					<!-- %%{init: {'theme': 'dark', 'themeVariables': { 'darkMode': true }}}%% -->
+					<!-- %%{init: {'theme':'base', 'themeVariables': { 'primaryColor': '#ffcccc', 'lineColor': 'blue', 'mainBkg': '#ffffcc' }}}%% -->
+					stateDiagram-v2
+						direction LR
+						[*] --> Stage1
+						Stage1 --> Stage2: no/wrong action
+						Stage2 --> Stage3: no/wrong action
+						Stage2 --> Stage1: correct intervention
+						Stage3 --> Stage2: correct intervention
+						
+						Stage3 --> [*]: ends
+	
+				  </pre>
+				</div>
+			</section>
+
+			<!-- Conclusion Slide -->
+			<section>
+				<div class="row">
+					<div class="col left">
+						<div class="fragment" data-fragment-index="1"
+							style="border: 2px solid aliceblue; border-radius: 5px; padding: 15px;">
+							<h3>If you do work with</h3>
+							<ul>
+								<li>Complicated relational data</li>
+								<li>That needs real-time updating</li>
+								<li>And external stakeholders must be able to CRUD</li>
+							</ul>
+						</div>
+						<br />
+						<div class="fragment" data-fragment-index="3"
+							style="border: 2px solid aliceblue; border-radius: 5px; padding: 15px;">
+							<h3>BECAUSE</h3>
+							<ul>
+								<li>Don’t waste time</li>
+								<li>It’s flexible & robust</li>
+								<li>Get on the same page (dashboard) with stakeholders!</li>
+							</ul>
+						</div>
+					</div>
+					<div class="col right">
+						<div class="fragment top" data-fragment-index="2"
+							style="border: 2px solid aliceblue; border-radius: 5px; padding: 15px;">
+							<!-- <div class="arrow-right"></div> -->
+							<h2 style="font-size: 54px;">Build dashboards <u>fast</u> with React-Admin</h2>
+							<img src="images/FinalSlideImage.png" style="margin-top: 0px; align-self: center;"
+								alt="Dashboard Image">
+						</div>
+						<div class="fragment row" data-fragment-index="4">
+							<div class="col">
+								<img src="images/React-Admin_Logo.svg" alt="React-Admin Logo">
+							</div>
+							<div class="col right" style="padding: 15px;">
+								<p><strong><a
+											href=" https://marmelab.com/react-admin/">https://marmelab.com/react-admin/</a></strong>
+								</p>
+								<p>talk by <strong>kaixin-hc</strong></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
 		</div>
+	</div>
 
-		<script src="dist/reveal.js"></script>
-		<script src="plugin/notes/notes.js"></script>
-		<script src="plugin/markdown/markdown.js"></script>
-		<script src="plugin/highlight/highlight.js"></script>
-		<script>
-			// More info about initialization & config:
-			// - https://revealjs.com/initialization/
-			// - https://revealjs.com/config/
-			Reveal.initialize({
-				hash: true,
+	<script src="dist/reveal.js"></script>
+	<script src="plugin/notes/notes.js"></script>
+	<script src="plugin/markdown/markdown.js"></script>
+	<script src="plugin/highlight/highlight.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/reveal.js-mermaid-plugin@2.3.0/plugin/mermaid/mermaid.js"></script>
 
-				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
-			});
-		</script>
-	</body>
+	<script>
+		// More info about initialization & config:
+		// - https://revealjs.com/initialization/
+		// - https://revealjs.com/config/
+		Reveal.initialize({
+			hash: true,
+			// // Activate the scroll view
+			// view: 'scroll',
+
+			// // Force the scrollbar to remain visible
+			// scrollProgress: true,
+			preloadIframes: true,
+			// Learn about plugins: https://revealjs.com/plugins/
+			plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealMermaid],
+			slideNumber: 'c'
+		});
+		function resetSlideScrolling(slide) {
+			slide.classList.remove('scrollable-slide');
+		}
+
+		function handleSlideScrolling(slide) {
+			if (slide.scrollHeight >= 800) {
+				slide.classList.add('scrollable-slide');
+			}
+		}
+
+		Reveal.addEventListener('ready', function (event) {
+			handleSlideScrolling(event.currentSlide);
+		});
+
+		Reveal.addEventListener('slidechanged', function (event) {
+			if (event.previousSlide) {
+				resetSlideScrolling(event.previousSlide);
+			}
+			handleSlideScrolling(event.currentSlide);
+		});
+
+	</script>
+</body>
+
 </html>
