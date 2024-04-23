@@ -114,8 +114,7 @@
 					### Approaching the problem through a serious medical game
 					* More accurately model a dynamic situation in a ward <!-- .element: class="fragment" data-fragment-index="1" -->
 					* Extremely scalable; additional players can practice without additional resources <!--.element: class="fragment"-->
-					* Safe environment to make mistakes <!-- .element: class="fragment" -->					
-
+					* Safe environment to make mistakes <!-- .element: class="fragment" -->	
 					</textarea>
 				</section>
 				<section> <!-- Table comparing teaching methods -->
@@ -166,52 +165,66 @@
 						</tbody>
 					</table>
 				</section>
+				<section data-markdown>
+					<textarea data-template>
+					### Literature Review: Key points
+
+					_Analysed commercial "for fun" games, medical game studio, NUS serious games, and OSCE.AI_ <!-- .element: class="fragment" -->	
+
+					> Validated Niche<!-- .element: class="fragment" -->	 
+
+					> Influenced Game Design <!-- .element: class="fragment" -->	
+
+					</textarea>
+				</section>
 			</section>
-			<section data-background="#007BFF">
-				<h2>Game: Code Blue</h2>
-				<div
-					style="text-align: left; border: white solid 5px; background-color:darkslategrey; padding:15px 30px;font-size: 32px;">
-					<p>Code Blue is a <b>serious medical simulation game</b> set in a hospital ward, where junior
-						doctors
-						<b>learn to prioritise tasks</b> to better serve their patients.
+			<section>
+				<section data-background="#007BFF">
+					<h2>Game: Code Blue</h2>
+					<div
+						style="text-align: left; border: white solid 5px; background-color:darkslategrey; padding:15px 30px;font-size: 32px;">
+						<p>Code Blue is a <b>serious medical simulation game</b> set in a hospital ward, where junior
+							doctors
+							<b>learn to prioritise tasks</b> to better serve their patients.
+						</p>
+
+						<br />
+						<p class="fragment">Target Audience: <b>students studying medicine</b> preparing for
+							work in real hospital wards.</p>
+					</div>
+					<p class="r-fit-text fragment"><em>Built with Godot and Supabase as a backend, hosted on web</em>
 					</p>
+				</section>
+				<section> <!-- Demo for the whole thing -->
+					<div class="r-stack">
+						<h2 class="fragment current-visible"><a src="https://code-blue-mvp.vercel.app/">Embedded
+								Demo</a> </h2>
+						<h2 class=" fragment current-visible">Tutorial
+						</h2>
+						<h2 class="fragment current-visible">Familiarising with the ward</h2>
+						<h2 class="fragment current-visible">Let's try out a sample game</h2>
+						<h2 class="fragment current-visible">Prioritise</h2>
+						<h2 class="fragment current-visible">Executing Actions</h2>
+						<h2 class="fragment current-visible">Taking a wrong action</h2>
+						<h2 class="fragment current-visible">Having Results Come Back</h2>
+						<h2 class="fragment current-visible">Understanding results</h2>
+					</div>
+					<iframe src="https://code-blue-mvp.vercel.app/" width="1200px" height="570px"></iframe>
+				</section>
 
-					<br />
-					<p class="fragment">Target Audience: <b>students studying medicine</b> preparing for
-						work in real hospital wards.</p>
-				</div>
-				<p class="r-fit-text fragment"><em>Built with Godot and Supabase as a backend, hosted on web</em></p>
-			</section>
-			<section> <!-- Demo for the whole thing -->
-				<div class="r-stack">
-					<h2 class="fragment current-visible"><a src="https://code-blue-mvp.vercel.app/">Embedded
-							Demo</a> </h2>
-					<h2 class=" fragment current-visible">Tutorial
-					</h2>
-					<h2 class="fragment current-visible">Familiarising with the ward</h2>
-					<h2 class="fragment current-visible">Let's try out a sample game</h2>
-					<h2 class="fragment current-visible">Prioritise</h2>
-					<h2 class="fragment current-visible">Executing Actions</h2>
-					<h2 class="fragment current-visible">Taking a wrong action</h2>
-					<h2 class="fragment current-visible">Having Results Come Back</h2>
-					<h2 class="fragment current-visible">Understanding results</h2>
-				</div>
-				<iframe src="https://code-blue-mvp.vercel.app/" width="1200px" height="570px"></iframe>
-			</section>
-
-			<section data-markdown data-auto-animate>
-				<textarea data-template>
+				<section data-markdown data-auto-animate>
+					<textarea data-template>
 					## Code Blue Key Feature Recap
 					* Randomised patients with art that reflects a range of conditions, ages, demographics <!-- .element: class="fragment" -->
 					* Priority list of tasks that can be added to, rearranged, and executed in order <!-- .element: class="fragment" -->
 					* Patient state deteriorates or improves based on time and patient actions <!-- .element: class="fragment" -->
 					* Game is scored and players can understand how they did <!-- .element: class="fragment" -->
 				</textarea>
-			</section>
+				</section>
 
-			<section> <!-- User Testing -->
-				<section data-markdown>
-					<textarea data-template>
+				<section> <!-- User Testing -->
+					<section data-markdown>
+						<textarea data-template>
 					<!-- .slide: data-background="#007BFF" -->
 					## User Testing & Response
 
@@ -269,42 +282,42 @@
 					_Examples of some feedback and how it was acted on in future iterations_
 					
 					</textarea>
-				</section>
-				<section>
-					<h3 data-background="#007BFF" class="r-fit-text">Feedback: Patient Screen Info</h3>
-					<div class="r-stack">
-						<img src="images/OLD-SymptomsPanel.png" class="fragment current-visible" />
+					</section>
+					<section>
+						<h3 data-background="#007BFF" class="r-fit-text">Feedback: Patient Screen Info</h3>
+						<div class="r-stack">
+							<img src="images/OLD-SymptomsPanel.png" class="fragment current-visible" />
 
-						<img src="images/VisibleSymptomsBubble.png" class="fragment current-visible" />
-					</div>
-				</section>
-				<section>
-					<h3 class="r-fit-text">Feedback: Triage patients visually</h3>
-
-					<p style="font-style: italic;">Exaggerated Breathing animations</p>
-					<div class="row">
-						<div class="col">
-							<video data-autoplay loop src="images/OLD-VERS-FastBreathing.mp4" height="500px">
+							<img src="images/VisibleSymptomsBubble.png" class="fragment current-visible" />
 						</div>
-						<p style="font-size: 80px; font-weight: 800; align-self:center;"> > </p>
-						<div class="col">
-							<video data-autoplay loop src="images/NEW-VERS-FastBreathing.mov" height="500px">
-						</div>
-					</div>
-				</section>
-				<section>
-					<h3 class="r-fit-text">Feedback: Triage patients visually</h3>
+					</section>
+					<section>
+						<h3 class="r-fit-text">Feedback: Triage patients visually</h3>
 
-					<p style="font-style: italic;">Old looking characters</p>
-					<img src="images/Old_Person_Art_Assets.png" class="r-stretch" />
+						<p style="font-style: italic;">Exaggerated Breathing animations</p>
+						<div class="row">
+							<div class="col">
+								<video data-autoplay loop src="images/OLD-VERS-FastBreathing.mp4" height="500px">
+							</div>
+							<p style="font-size: 80px; font-weight: 800; align-self:center;"> > </p>
+							<div class="col">
+								<video data-autoplay loop src="images/NEW-VERS-FastBreathing.mov" height="500px">
+							</div>
+						</div>
+					</section>
+					<section>
+						<h3 class="r-fit-text">Feedback: Triage patients visually</h3>
+
+						<p style="font-style: italic;">Old looking characters</p>
+						<img src="images/Old_Person_Art_Assets.png" class="r-stretch" />
+					</section>
 				</section>
-			</section>
-			<section data-background="#007BFF">
-				<h2>Design decisions</h2>
-			</section>
-			<section> <!-- Data Driven Design -->
-				<section data-markdown>
-					<textarea data-template>
+				<section data-background="#007BFF">
+					<h2>Design decisions</h2>
+				</section>
+				<section> <!-- Data Driven Design -->
+					<section data-markdown>
+						<textarea data-template>
 					<!-- .slide: data-background="#007BFF" -->
 					## Data driven design
 
@@ -323,13 +336,13 @@
 					* Simple authentication (done with Supabase)
 					* Built with React-Admin
 					</textarea>
-				</section>
+					</section>
 
-				<section data-background-iframe="https://codebluedashboard-gvpi.vercel.app/" data-background-interactive
-					data-preload>
-				</section>
-				<section data-markdown>
-					<textarea>
+					<section data-background-iframe="https://codebluedashboard-gvpi.vercel.app/"
+						data-background-interactive data-preload>
+					</section>
+					<section data-markdown>
+						<textarea>
 
 					## Impact of Dashboard <!-- .element: class="r-fit-text" -->
 
@@ -343,12 +356,12 @@
 
 					* Slight delay on load while waiting to pull data
 					</textarea>
+					</section>
 				</section>
-			</section>
 
-			<section> <!-- Patient Generation Model-->
-				<section data-markdown>
-					<textarea data-template>
+				<section> <!-- Patient Generation Model-->
+					<section data-markdown>
+						<textarea data-template>
 					<!-- .slide: data-background="#007BFF" -->
 					## Patient Generation Model
 					---
@@ -362,14 +375,14 @@
 					![Image of data generation](images/DataGenerationPython.png)
 
 					</textarea>
-				</section>
-				<section>
-					<h2 class="r-fit-text">Key Decision: what does the player see?</h2>
-					<video src="images/Monitor.mov" data-autoplay loop height="500px"></video>
-				</section>
-				<section data-markdown>
-					<!-- ## Key Decision: How much of the data to use? <!-- .element: class="r-fit-text" -->
-					<textarea>
+					</section>
+					<section>
+						<h2 class="r-fit-text">Key Decision: what does the player see?</h2>
+						<video src="images/Monitor.mov" data-autoplay loop height="500px"></video>
+					</section>
+					<section data-markdown>
+						<!-- ## Key Decision: How much of the data to use? <!-- .element: class="r-fit-text" -->
+						<textarea>
 
 					## Alternatives considered
 
@@ -378,11 +391,11 @@
 					 
 					_Ultimately, linear stages were relatively simple + versatile_<!-- .element: class="fragment r-fit-text" -->
 					</textarea>
+					</section>
 				</section>
-			</section>
-			<section>
-				<section data-markdown>
-					<textarea data-template>
+				<section>
+					<section data-markdown>
+						<textarea data-template>
 					<!-- .slide: data-background="#007BFF" -->
 					## Art decisions
 					---
@@ -405,11 +418,11 @@
 					* *pros*: more extensible & mantainable, allows doctors to enter the data, faster upfront load time 
 					* *cons*: slight delay when loading in game 
 					</textarea>
+					</section>
 				</section>
-			</section>
-			<section>
-				<section data-markdown>
-					<textarea data-template>
+				<section>
+					<section data-markdown>
+						<textarea data-template>
 						<!-- .slide: data-background="#007BFF" -->
 						## Future Work & Conclusions
 						---
@@ -439,13 +452,13 @@
 						* Satisfied with foundation created by work done <!-- .element: class="fragment" -->
 						* Deeply thankful for generous support <!-- .element: class="fragment" -->
 					</textarea>
+					</section>
 				</section>
-			</section>
 
-			<section data-background="#007BFF">
-				<h1>Thank you!</h1>
-				<h2>Questions?</h2>
-			</section>
+				<section data-background="#007BFF">
+					<h1>Thank you!</h1>
+					<h2>Questions?</h2>
+				</section>
 
 		</div>
 	</div>
